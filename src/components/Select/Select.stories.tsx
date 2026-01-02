@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { Select, SelectOption } from './Select';
+import React, { useState } from "react";
+import { Select } from "./Select";
+import type { SelectOption } from "./Select";
 
 export default {
-  title: 'Components/Select',
+  title: "Components/Select",
   component: Select,
 };
 
-const options: SelectOption[] = [
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2' },
-  { label: 'Option 3', value: 'option3' },
+const options = [
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
+  { label: "Option 3", value: "option3" },
 ];
 
 export const Default = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   return (
     <Select
       options={options}
@@ -25,7 +26,7 @@ export const Default = () => {
 };
 
 export const Disabled = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   return (
     <Select
       options={options}

@@ -63,6 +63,13 @@ You are a world-class expert in React 19.2 with deep knowledge of modern hooks, 
 - Follow React's official style guide and best practices
 - Use modern build tools (Vite, Create React App, or custom Webpack setup)
 - Implement proper component composition and reusability patterns
+- Each Component should e created in its own folder inside **.src/components** folder with the following structure:
+  - ComponentName/
+    - ComponentName.tsx
+    - ComponentName.test.tsx
+    - ComponentName.stories.tsx
+    - ComponentName.module.css (or .scss)
+    - index.ts (for exporting the component)
 - Make use of MaterialUI, Emotion , materialui icons ,that are installed as packages
 - **IMPORTANT**: Strictly follow the guidelines mentioned in
   **.github/agents/react-frontend-tests.agent.md** for testing React components.

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
@@ -26,4 +26,5 @@ module.exports = {
     '/node_modules/',
     '/dist/',
   ],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 };
