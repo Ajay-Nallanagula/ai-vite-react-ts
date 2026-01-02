@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Select } from "./components/Select";
-import type { SelectOption } from "./components/Select";
+import { useState } from "react";
+import { Select } from "./components/Select/index";
+import type { SelectOption } from "./components/Select/index";
 import "./App.css";
 
 const options: SelectOption[] = [
