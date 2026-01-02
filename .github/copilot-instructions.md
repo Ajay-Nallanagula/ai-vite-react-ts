@@ -1,0 +1,2 @@
+- Entire repo related instructions should be given here.
+- Tests should be written in jest, react-testing-library, typescript as per the instructions in .github/agents/react-frontend-tests.md
