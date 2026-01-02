@@ -2,29 +2,7 @@
 description: "ReactJS development standards and best practices"
 applyTo: "**/*.jsx, **/*.tsx, **/*.js, **/*.ts, **/*.css, **/*.scss"
 tools:
-  [
-    "changes",
-    "codebase",
-    "edit/editFiles",
-    "extensions",
-    "fetch",
-    "findTestFiles",
-    "githubRepo",
-    "new",
-    "openSimpleBrowser",
-    "problems",
-    "runCommands",
-    "runTasks",
-    "runTests",
-    "search",
-    "searchResults",
-    "terminalLastCommand",
-    "terminalSelection",
-    "testFailure",
-    "usages",
-    "vscodeAPI",
-    "microsoft.docs.mcp",
-  ]
+  ['vscode', 'execute/testFailure', 'execute/getTerminalOutput', 'execute/runTask', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'execute/runTests', 'read', 'edit', 'search', 'web', 'github-mcp/*']
 ---
 
 # Purpose: Storybook documentation Instructions for React Components

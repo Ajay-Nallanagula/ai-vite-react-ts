@@ -32,6 +32,7 @@ tools:
     "vscodeAPI",
     "microsoft.docs.mcp",
     "changes",
+    "files",
   ]
 ---
 
