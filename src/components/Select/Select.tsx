@@ -1,7 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-// @ts-ignore
-const ArrowIcon = require("../../assets/figma/select-dropdown-arrow.svg");
+
+// Handle SVG import for both Jest and Storybook
+let ArrowIcon: string;
+try {
+  // Try ES module import first (for Storybook/browser)
+  // @ts-ignore
+  ArrowIcon = require("../../assets/figma/select-dropdown-arrow.svg");
+} catch {
+  // Fallback for browser environments
+  ArrowIcon = "";
+}
 
 export interface SelectOption {
   label: string;
