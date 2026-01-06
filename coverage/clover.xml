@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1767357579913" clover="3.2.0">
-  <project timestamp="1767357579913" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1767709520668" clover="3.2.0">
+  <project timestamp="1767709520669" name="All files">
+    <metrics statements="29" coveredstatements="20" conditionals="27" coveredconditionals="25" methods="11" coveredmethods="9" elements="67" coveredelements="54" complexity="0" loc="29" ncloc="29" packages="2" files="3" classes="3"/>
+    <package name="src">
+      <metrics statements="7" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="App.tsx" path="C:\Ajay_EPAM\PDP_PRACTICSE\ai-tasks\ai-vite-react-ts\src\App.tsx">
+        <metrics statements="7" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Select">
+      <metrics statements="22" coveredstatements="20" conditionals="25" coveredconditionals="25" methods="10" coveredmethods="9"/>
+      <file name="Select.tsx" path="C:\Ajay_EPAM\PDP_PRACTICSE\ai-tasks\ai-vite-react-ts\src\components\Select\Select.tsx">
+        <metrics statements="21" coveredstatements="20" conditionals="25" coveredconditionals="25" methods="9" coveredmethods="9"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="35" count="45" type="stmt"/>
+        <line num="36" count="45" type="stmt"/>
+        <line num="38" count="45" type="stmt"/>
+        <line num="39" count="45" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="15" type="stmt"/>
+        <line num="41" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="45" count="15" type="stmt"/>
+        <line num="46" count="15" type="stmt"/>
+        <line num="49" count="317" type="stmt"/>
+        <line num="51" count="45" type="stmt"/>
+        <line num="61" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="120" count="141" type="stmt"/>
+        <line num="123" count="3" type="stmt"/>
+        <line num="124" count="3" type="stmt"/>
+      </file>
+      <file name="index.ts" path="C:\Ajay_EPAM\PDP_PRACTICSE\ai-tasks\ai-vite-react-ts\src\components\Select\index.ts">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
