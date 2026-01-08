@@ -233,6 +233,85 @@ function formatReviewComment(issues: ReviewIssue[]): string {
 }
 
 /**
+ * Fetch changed files from a GitHub PR
+ */
+async function getChangedFilesFromPR(
+  owner: string,
+  repo: string,
+  pr: number
+): Promise<Array<{ path: string; content: string }>> {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    console.log("⚠️ GITHUB_TOKEN not set, using example files for demo");
+    return getExampleChangedFiles();
+  }
+
+  try {
+    // Fetch the list of changed files in the PR
+    const filesUrl = `https://api.github.com/repos/${owner}/${repo}/pulls/${pr}/files`;
+    const filesResponse = await fetch(filesUrl, {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+    });
+
+    if (!filesResponse.ok) {
+      console.log(
+        `⚠️ Could not fetch PR files (${filesResponse.status}), using example files`
+      );
+      return getExampleChangedFiles();
+    }
+
+    const files = await filesResponse.json();
+    const changedFiles: Array<{ path: string; content: string }> = [];
+
+    // Get content for each changed file
+    for (const file of files) {
+      // Skip deleted files and non-source files
+      if (file.status === "removed") continue;
+
+      // Only analyze source files
+      const ext = file.filename.split(".").pop();
+      if (!["ts", "tsx", "js", "jsx", "css", "json"].includes(ext)) continue;
+
+      try {
+        const contentUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${file.filename}?ref=${
+          process.env.GITHUB_HEAD_REF || "main"
+        }`;
+        const contentResponse = await fetch(contentUrl, {
+          headers: {
+            Authorization: `token ${token}`,
+            Accept: "application/vnd.github.v3.raw",
+          },
+        });
+
+        if (contentResponse.ok) {
+          const content = await contentResponse.text();
+          changedFiles.push({
+            path: file.filename,
+            content: content,
+          });
+          console.log(`   ✓ Fetched: ${file.filename}`);
+        }
+      } catch (error) {
+        console.log(`   ⚠️ Skipped: ${file.filename}`);
+      }
+    }
+
+    if (changedFiles.length === 0) {
+      console.log("⚠️ No source files found in PR, using example files");
+      return getExampleChangedFiles();
+    }
+
+    return changedFiles;
+  } catch (error) {
+    console.log("⚠️ Error fetching PR files, using example files");
+    return getExampleChangedFiles();
+  }
+}
+
+/**
  * Main function to orchestrate code review
  */
 async function runCodeReview() {
@@ -241,30 +320,34 @@ async function runCodeReview() {
   console.log(`\n🚀 Starting code review for ${owner}/${repo} PR #${pr}...\n`);
 
   try {
-    // Step 1: Fetch PR details (in real scenario, would use GitHub API)
+    // Step 1: Fetch PR details
     console.log("📥 Fetching PR details...");
     const prData = {
       owner,
       repo,
       number: pr,
-      title: "Example PR",
-      description: "This is a code review demonstration",
+      title: "Pull Request Code Review",
+      description: "Code review analysis",
     };
 
-    // Step 2: Simulate fetching changed files
-    // In a real scenario, you would use the GitHub API to get actual changed files
-    console.log("📂 Analyzing changed files...");
-    const changedFiles = getExampleChangedFiles();
+    // Step 2: Fetch actual changed files from the PR
+    console.log("📂 Fetching changed files from PR...");
+    const changedFiles = await getChangedFilesFromPR(owner, repo, pr);
 
     // Step 3: Analyze each file
     const allIssues: ReviewIssue[] = [];
     const fileAnalyses: FileAnalysis[] = [];
 
-    for (const file of changedFiles) {
-      console.log(`   Analyzing: ${file.path}`);
-      const issues = analyzeFile(file.path, file.content);
-      allIssues.push(...issues);
-      fileAnalyses.push({ file: file.path, issues });
+    if (changedFiles.length === 0) {
+      console.log("ℹ️ No files to analyze");
+    } else {
+      console.log(`\n📊 Analyzing ${changedFiles.length} file(s)...`);
+      for (const file of changedFiles) {
+        console.log(`   Analyzing: ${file.path}`);
+        const issues = analyzeFile(file.path, file.content);
+        allIssues.push(...issues);
+        fileAnalyses.push({ file: file.path, issues });
+      }
     }
 
     // Step 4: Generate review summary
@@ -272,7 +355,11 @@ async function runCodeReview() {
 
     // Step 5: Output results
     console.log("\n✅ Code review analysis complete!\n");
-    console.log(reviewComment);
+    if (allIssues.length === 0) {
+      console.log("🎉 No issues found!");
+    } else {
+      console.log(reviewComment);
+    }
 
     // Step 6: Save review data for GitHub posting
     const reviewData = {
@@ -294,9 +381,7 @@ async function runCodeReview() {
     const reviewFile = path.join(reviewDir, `review-pr-${prData.number}.json`);
     fs.writeFileSync(reviewFile, JSON.stringify(reviewData, null, 2));
 
-    console.log(`📝 Review data saved to: ${reviewFile}`);
-    console.log(`\nTo post this review to GitHub, run:`);
-    console.log(`npm run post-review -- --pr=${prData.number}`);
+    console.log(`\n📝 Review data saved to: ${reviewFile}`);
 
     // Step 7: Fail if errors found (blocks merge with branch protection)
     const errorCount = allIssues.filter(
