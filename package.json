@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-   "scripts": {
+  "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -14,7 +14,10 @@
     "test:coverage:report": "jest --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "git-server": "npx github-mcp-server --stdio"
+    "git-server": "npx github-mcp-server --stdio",
+    "code-review": "ts-node scripts/codereview.agent.ts",
+    "post-review": "ts-node scripts/post-review.ts",
+    "review-help": "echo 'Usage: npm run code-review -- --owner=<owner> --repo=<repo> --pr=<number>'"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
