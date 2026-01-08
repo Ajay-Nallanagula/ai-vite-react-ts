@@ -39,7 +39,7 @@
     }
   },
   "github": {
-    "owner": "ajay-epam",
+    "owner": "ajay-nallanagula",
     "repo": "ai-vite-react-ts",
     "postToGitHub": true,
     "reviewEvent": "COMMENT",
