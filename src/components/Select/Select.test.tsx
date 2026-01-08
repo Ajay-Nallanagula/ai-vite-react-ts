@@ -30,9 +30,7 @@ describe("Select Component", () => {
     });
 
     it("shows selected option label when value is provided", () => {
-      render(
-        <Select options={options} value="option2" onChange={() => {}} />
-      );
+      render(<Select options={options} value="option2" onChange={() => {}} />);
       expect(screen.getByText("Option 2")).toBeInTheDocument();
     });
 
@@ -86,9 +84,7 @@ describe("Select Component", () => {
     it("closes dropdown when option is selected", async () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
-      render(
-        <Select options={options} value="" onChange={handleChange} />
-      );
+      render(<Select options={options} value="" onChange={handleChange} />);
 
       const selectBox = screen.getByText("Select...");
       await user.click(selectBox);
@@ -120,9 +116,7 @@ describe("Select Component", () => {
 
     it("closes dropdown when pressing Escape key", async () => {
       const user = userEvent.setup();
-      render(
-        <Select options={options} value="" onChange={() => {}} />
-      );
+      render(<Select options={options} value="" onChange={() => {}} />);
 
       const selectBox = screen.getByText("Select...");
       await user.click(selectBox);
@@ -187,12 +181,7 @@ describe("Select Component", () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(
-        <Select
-          options={options}
-          value=""
-          onChange={handleChange}
-          disabled
-        />
+        <Select options={options} value="" onChange={handleChange} disabled />
       );
 
       const selectBox = screen.getByText("Select...");
@@ -206,12 +195,7 @@ describe("Select Component", () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(
-        <Select
-          options={options}
-          value=""
-          onChange={handleChange}
-          disabled
-        />
+        <Select options={options} value="" onChange={handleChange} disabled />
       );
 
       const selectBox = screen.getByText("Select...");
@@ -265,9 +249,7 @@ describe("Select Component", () => {
 
     it("marks selected option with aria-selected", async () => {
       const user = userEvent.setup();
-      render(
-        <Select options={options} value="option2" onChange={() => {}} />
-      );
+      render(<Select options={options} value="option2" onChange={() => {}} />);
 
       const selectBox = screen.getByText("Option 2");
       await user.click(selectBox);
@@ -278,9 +260,7 @@ describe("Select Component", () => {
 
     it("has role listbox for dropdown menu", async () => {
       const user = userEvent.setup();
-      render(
-        <Select options={options} value="" onChange={() => {}} />
-      );
+      render(<Select options={options} value="" onChange={() => {}} />);
 
       const selectBox = screen.getByText("Select...");
       await user.click(selectBox);
@@ -291,9 +271,7 @@ describe("Select Component", () => {
 
     it("has role option for each option item", async () => {
       const user = userEvent.setup();
-      render(
-        <Select options={options} value="" onChange={() => {}} />
-      );
+      render(<Select options={options} value="" onChange={() => {}} />);
 
       const selectBox = screen.getByText("Select...");
       await user.click(selectBox);
@@ -318,13 +296,7 @@ describe("Select Component", () => {
         { label: 'Option "Quoted"', value: "quoted" },
       ];
 
-      render(
-        <Select
-          options={specialOptions}
-          value=""
-          onChange={() => {}}
-        />
-      );
+      render(<Select options={specialOptions} value="" onChange={() => {}} />);
 
       const selectBox = screen.getByText("Select...");
       await user.click(selectBox);
@@ -352,13 +324,7 @@ describe("Select Component", () => {
         value: `option${i + 1}`,
       }));
 
-      render(
-        <Select
-          options={manyOptions}
-          value=""
-          onChange={() => {}}
-        />
-      );
+      render(<Select options={manyOptions} value="" onChange={() => {}} />);
 
       const selectBox = screen.getByText("Select...");
       await user.click(selectBox);
