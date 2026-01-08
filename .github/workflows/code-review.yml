@@ -63,41 +63,36 @@ jobs:
               return;
             }
             
-            // Get PR files
-            const files = await github.rest.pulls.listFiles({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
+            // Step 1: Post line-specific comments
+            const issuesWithLines = reviewData.issues.filter(issue => issue.line);
             
-            // Create review with comments
-            const review = await github.rest.pulls.createReview({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-              body: reviewData.comment,
-              event: 'COMMENT',
-              comments: reviewData.issues
-                .filter(issue => issue.line)
-                .map(issue => ({
+            for (const issue of issuesWithLines) {
+              try {
+                await github.rest.pulls.createReviewComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
                   path: issue.path,
                   line: issue.line,
-                  body: `${issue.comment}\n\n*Severity: ${issue.severity.toUpperCase()}*`
-                }))
+                  body: `**${issue.severity.toUpperCase()}**: ${issue.comment}`
+                });
+                console.log(`✅ Posted comment on ${issue.path}:${issue.line}`);
+              } catch (error) {
+                console.log(`⚠️ Could not post comment on line ${issue.line}: ${error.message}`);
+              }
+            }
+            
+            // Step 2: Post summary comment in conversation
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: reviewData.comment
             });
             
-            console.log('✅ Review with line comments posted to GitHub');
-            console.log(`Total issues found: ${reviewData.issues.length}`);
-            
-            // Post summary comment if there are issues
-            if (reviewData.issues.length > 0) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: `## 📊 Code Review Summary\n\n**Total Issues: ${reviewData.issues.length}**\n\n${reviewData.comment}`
-              });
-            }
+            console.log('✅ Review comments posted to GitHub');
+            console.log(`📍 Line comments: ${issuesWithLines.length}`);
+            console.log(`📝 Summary posted in conversation`);
 
       - name: 📊 Generate summary
         if: always()
