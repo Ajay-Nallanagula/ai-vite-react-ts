@@ -36,7 +36,7 @@ jobs:
             --repo=${{ github.event.repository.name }} \
             --pr=${{ github.event.pull_request.number }}
 
-      - name: 📤 Post review comment
+      - name: 📤 Post review with line comments
         if: always()
         uses: actions/github-script@v7
         with:
@@ -51,19 +51,52 @@ jobs:
               `review-pr-${{ github.event.pull_request.number }}.json`
             );
             
-            if (fs.existsSync(reviewFile)) {
-              const reviewData = JSON.parse(fs.readFileSync(reviewFile, 'utf-8'));
-              
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
+            if (!fs.existsSync(reviewFile)) {
+              console.log('ℹ️ No issues found in code review');
+              return;
+            }
+            
+            const reviewData = JSON.parse(fs.readFileSync(reviewFile, 'utf-8'));
+            
+            if (reviewData.issues.length === 0) {
+              console.log('ℹ️ No issues found in code review');
+              return;
+            }
+            
+            // Get PR files
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            // Create review with comments
+            const review = await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              body: reviewData.comment,
+              event: 'COMMENT',
+              comments: reviewData.issues
+                .filter(issue => issue.line)
+                .map(issue => ({
+                  path: issue.path,
+                  line: issue.line,
+                  body: `${issue.comment}\n\n*Severity: ${issue.severity.toUpperCase()}*`
+                }))
+            });
+            
+            console.log('✅ Review with line comments posted to GitHub');
+            console.log(`Total issues found: ${reviewData.issues.length}`);
+            
+            // Post summary comment if there are issues
+            if (reviewData.issues.length > 0) {
+              await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: reviewData.comment
+                issue_number: context.issue.number,
+                body: `## 📊 Code Review Summary\n\n**Total Issues: ${reviewData.issues.length}**\n\n${reviewData.comment}`
               });
-              
-              console.log('✅ Review comment posted to GitHub');
-            } else {
-              console.log('ℹ️ No issues found in code review');
             }
 
       - name: 📊 Generate summary
