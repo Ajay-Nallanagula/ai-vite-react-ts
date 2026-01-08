@@ -1,0 +1,66 @@
+{
+  "analyzer": {
+    "enabled": true,
+    "rules": {
+      "typescript": {
+        "checkConsoleLog": {
+          "enabled": true,
+          "severity": "warning"
+        },
+        "checkAsyncErrors": {
+          "enabled": true,
+          "severity": "warning"
+        },
+        "checkTodoComments": {
+          "enabled": true,
+          "severity": "info"
+        },
+        "checkImports": {
+          "enabled": true,
+          "severity": "error"
+        }
+      },
+      "css": {
+        "checkImportant": {
+          "enabled": true,
+          "severity": "warning"
+        },
+        "checkInlineStyles": {
+          "enabled": true,
+          "severity": "info"
+        }
+      },
+      "json": {
+        "validateSyntax": {
+          "enabled": true,
+          "severity": "error"
+        }
+      }
+    }
+  },
+  "github": {
+    "owner": "ajay-nallanagula",
+    "repo": "ai-vite-react-ts",
+    "postToGitHub": true,
+    "reviewEvent": "COMMENT",
+    "commentOnEveryFile": false
+  },
+  "filePatterns": {
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.js",
+      "src/**/*.jsx",
+      "src/**/*.css",
+      "*.json",
+      "tsconfig*.json"
+    ],
+    "exclude": ["node_modules/**", "dist/**", "build/**", ".next/**"]
+  },
+  "reporting": {
+    "groupBySeverity": true,
+    "sortByLine": true,
+    "maxIssuesPerFile": null,
+    "verboseOutput": true
+  }
+}

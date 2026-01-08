@@ -1,0 +1,33 @@
+{
+  "pr": 1,
+  "owner": "ajay-epam",
+  "repo": "ai-vite-react-ts",
+  "comment": "## 🔍 Code Review Summary\n\n### ❌ Errors (1)\n- **src/App.tsx:2**: 🗑️ Potentially malformed import statement. Please review.\n\n### ⚠️ Warnings (3)\n- **src/App.tsx:11**: 🔍 Avoid console.log in production code. Use proper logging or remove before merge.\n- **src/index.css:3**: ⚠️ Minimize use of !important. Consider restructuring CSS specificity instead.\n- **src/index.css:9**: ⚠️ Minimize use of !important. Consider restructuring CSS specificity instead.\n\n",
+  "issues": [
+    {
+      "path": "src/App.tsx",
+      "line": 2,
+      "comment": "🗑️ Potentially malformed import statement. Please review.",
+      "severity": "error"
+    },
+    {
+      "path": "src/App.tsx",
+      "line": 11,
+      "comment": "🔍 Avoid console.log in production code. Use proper logging or remove before merge.",
+      "severity": "warning"
+    },
+    {
+      "path": "src/index.css",
+      "line": 3,
+      "comment": "⚠️ Minimize use of !important. Consider restructuring CSS specificity instead.",
+      "severity": "warning"
+    },
+    {
+      "path": "src/index.css",
+      "line": 9,
+      "comment": "⚠️ Minimize use of !important. Consider restructuring CSS specificity instead.",
+      "severity": "warning"
+    }
+  ],
+  "timestamp": "2026-01-08T07:48:19.490Z"
+}
