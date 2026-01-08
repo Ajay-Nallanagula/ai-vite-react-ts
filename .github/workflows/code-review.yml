@@ -74,3 +74,9 @@ jobs:
           echo "- PR Number: ${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
           echo "- Author: ${{ github.event.pull_request.user.login }}" >> $GITHUB_STEP_SUMMARY
           echo "- Review Status: ✅ Complete" >> $GITHUB_STEP_SUMMARY
+
+      - name: 🔒 Block merge if errors found
+        if: failure()
+        run: |
+          echo "❌ Code review found errors that must be fixed before merging."
+          exit 1

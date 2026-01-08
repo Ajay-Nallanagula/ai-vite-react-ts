@@ -297,6 +297,17 @@ async function runCodeReview() {
     console.log(`📝 Review data saved to: ${reviewFile}`);
     console.log(`\nTo post this review to GitHub, run:`);
     console.log(`npm run post-review -- --pr=${prData.number}`);
+
+    // Step 7: Fail if errors found (blocks merge with branch protection)
+    const errorCount = allIssues.filter(
+      (issue) => issue.severity === "error"
+    ).length;
+    if (errorCount > 0) {
+      console.error(
+        `\n❌ WORKFLOW FAILED: ${errorCount} error(s) found. Fix before merging.`
+      );
+      process.exit(1);
+    }
   } catch (error) {
     console.error("❌ Code review failed:", error);
     process.exit(1);
