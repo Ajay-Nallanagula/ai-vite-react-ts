@@ -1,0 +1,256 @@
+/* ============================================
+   Counter Component - Styles
+   
+   Figma Reference: vnnkTMA21XOShLbuZuWc38 (7-52)
+   Design System: Material Design compatible
+   ============================================ */
+
+/* Root Container */
+.counter-container {
+  --counter-white: #ffffff;
+  --counter-gray: #d9d9d9;
+  --counter-black: #000000;
+  --counter-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  --counter-border: 1px solid rgba(0, 0, 0, 0.1);
+  
+  --counter-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --counter-font-size-button: 12px;
+  --counter-font-size-title: 14px;
+  --counter-font-weight: 400;
+  --counter-line-height: 1.21;
+}
+
+/* Main Section - 511 x 466px */
+.counter__section {
+  position: relative;
+  width: 511px;
+  height: 466px;
+  background-color: var(--counter-white);
+  border: var(--counter-border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Button Groups */
+.counter__button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.counter__button-group--subtract {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.counter__button-group--add {
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* Icon */
+.counter__icon {
+  width: 29.82px;
+  height: 47.18px;
+  color: var(--counter-black);
+  filter: drop-shadow(var(--counter-shadow));
+}
+
+/* Buttons */
+.counter__button {
+  width: 197px;
+  height: 60px;
+  padding: 12px 16px;
+  
+  background-color: var(--counter-gray);
+  border: none;
+  border-radius: 4px;
+  
+  font-family: var(--counter-font-family);
+  font-size: var(--counter-font-size-button);
+  font-weight: var(--counter-font-weight);
+  line-height: var(--counter-line-height);
+  color: var(--counter-black);
+  
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: var(--counter-shadow);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter__button:hover:not(:disabled) {
+  background-color: #c9c9c9;
+  transform: translateY(-2px);
+}
+
+.counter__button:active:not(:disabled) {
+  background-color: #b9b9b9;
+  transform: translateY(0);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.counter__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.counter__button--subtract {
+  background-color: var(--counter-gray);
+}
+
+.counter__button--add {
+  background-color: var(--counter-white);
+  border: 1px solid var(--counter-gray);
+}
+
+/* Button Text */
+.counter__button-text {
+  font-size: var(--counter-font-size-button);
+  font-weight: var(--counter-font-weight);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Display Area */
+.counter__display-area {
+  width: 440px;
+  height: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background-color: var(--counter-white);
+}
+
+/* Display Slot (decorative element) */
+.counter__display-slot {
+  width: 50px;
+  height: 50px;
+  background-color: var(--counter-white);
+  border: 1px solid var(--counter-border);
+  border-radius: 4px;
+  box-shadow: var(--counter-shadow);
+}
+
+/* Title Text */
+.counter__title {
+  font-family: var(--counter-font-family);
+  font-size: var(--counter-font-size-title);
+  font-weight: var(--counter-font-weight);
+  line-height: var(--counter-line-height);
+  color: var(--counter-black);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Counter Output - Hidden but accessible */
+.counter__output {
+  position: absolute;
+  top: 220px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  font-family: var(--counter-font-family);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--counter-black);
+  
+  min-width: 40px;
+  text-align: center;
+  background: transparent;
+  border: none;
+}
+
+/* Responsive Design - Tablet (768px and up) */
+@media (max-width: 768px) {
+  .counter__section {
+    width: 100%;
+    max-width: 511px;
+    height: auto;
+    min-height: 400px;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .counter__button {
+    width: 160px;
+    height: 50px;
+  }
+
+  .counter__display-area {
+    width: 100%;
+    max-width: 390px;
+  }
+}
+
+/* Responsive Design - Mobile (480px and down) */
+@media (max-width: 480px) {
+  .counter__section {
+    width: 100%;
+    max-width: 360px;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .counter__button {
+    width: 140px;
+    height: 45px;
+    font-size: 11px;
+  }
+
+  .counter__icon {
+    width: 24px;
+    height: 40px;
+  }
+
+  .counter__display-area {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .counter__output {
+    font-size: 20px;
+  }
+}
+
+/* Accessibility - Focus States */
+.counter__button:focus {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .counter__button {
+    transition: none;
+  }
+
+  .counter__button:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .counter-container {
+    --counter-white: #1a1a1a;
+    --counter-gray: #333333;
+    --counter-black: #ffffff;
+  }
+
+  .counter__button--add {
+    border-color: #555555;
+  }
+}
